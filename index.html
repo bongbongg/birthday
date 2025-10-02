@@ -1,42 +1,210 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy 22nd Birthday Indra 🎉</title>
-  <meta name="description" content="Interaktif: hadiah, mini-game, musik, character guide — siap upload ke Netlify" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg1:#071021; --bg2:#18304a; --accent:#ffbf00; --card:#0f1720;
-      --glass: rgba(255,255,255,0.06);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,Arial;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    body{
-      background: radial-gradient(1200px 600px at 10% 10%, #0b2540 0%, rgba(11,37,64,0) 30%),
-                  linear-gradient(135deg,var(--bg1),var(--bg2));
-      color:#e6eef8;display:flex;align-items:center;justify-content:center;
-      padding:30px;overflow:hidden;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
     }
 
-    /* layout */
-    .stage{width:1200px;max-width:100%;height:760px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-radius:20px;box-shadow:0 20px 60px rgba(2,8,23,0.8);position:relative;overflow:hidden;padding:32px;}
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 80px;
+      animation: fadeIn 2s ease forwards;
+    }
 
-    header{display:flex;align-items:center;gap:18px}
-    .logo{display:flex;flex-direction:column}
-    h1{margin:0;font-size:34px;letter-spacing:0.6px}
-    p.lead{margin:2px 0 0;color:#bcd3ee;opacity:0.95}
+    .btn {
+      background: #ffcc00;
+      color: #222;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: #ffaa00;
+      transform: scale(1.1);
+    }
 
-    /* left panel */
-    .left{position:absolute;left:32px;top:120px;width:420px}
-    .card{background:linear-gradient(180deg,var(--glass), rgba(255,255,255,0.02));backdrop-filter: blur(6px);
-      border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 8px 30px rgba(2,8,23,0.6)}
-    .age{font-size:72px;font-weight:900;color:var(--accent);text-shadow:0 6px 30px rgba(255,190,40,0.12)}
-    .sub{color:#9fb7d6;font-weight:500}
+    .gift-container {
+      display: none;
+      margin: 40px auto;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+    }
 
-    /* center gift room */
-    .room{position:absolute;left
+    .gift {
+      width: 120px;
+      height: 120px;
+      background: #ff4e50;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+    .gift:hover {
+      transform: scale(1.1);
+    }
+    .gift::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 45%;
+      width: 10px;
+      height: 100%;
+      background: #fff;
+    }
+    .gift::after {
+      content: "";
+      position: absolute;
+      top: 45%;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: #fff;
+    }
+
+    .message {
+      display: none;
+      margin: 15px auto;
+      font-size: 1rem;
+      background: rgba(0,0,0,0.6);
+      padding: 12px;
+      border-radius: 8px;
+      max-width: 400px;
+    }
+
+    .character {
+      margin-top: 30px;
+      animation: float 3s ease-in-out infinite;
+    }
+    .character img {
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy 22nd Birthday Indra 🎂</h1>
+  <button class="btn" onclick="showGifts()">Mulai Perayaan ➡️</button>
+
+  <div class="gift-container" id="giftContainer">
+    <div class="gift" onclick="openGift(0)"></div>
+    <div class="gift" onclick="openGift(1)"></div>
+    <div class="gift" onclick="openGift(2)"></div>
+  </div>
+
+  <div id="messages">
+    <div class="message">🎁 Indra, semoga umur 22 penuh kebahagiaan dan rezeki!</div>
+    <div class="message">🔥 Makin sukses, makin keren, dan selalu sehat!</div>
+    <div class="message">🚀 Semoga semua mimpi kamu segera tercapai!</div>
+  </div>
+
+  <div class="character">
+    <img src="https://i.ibb.co/fSn7y0h/anime-boy.png" alt="Anime Boy">
+    <p>Yo Indra, siap buka kadonya? 😎</p>
+  </div>
+
+  <!-- Musik Happy -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+  </audio>
+  <button class="btn" onclick="toggleMusic()">🎵 Play/Pause Musik</button>
+
+  <canvas id="confetti"></canvas>
+
+  <script>
+    function showGifts() {
+      document.getElementById("giftContainer").style.display = "flex";
+      startConfetti();
+    }
+
+    function openGift(index) {
+      const messages = document.querySelectorAll(".message");
+      messages[index].style.display = "block";
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Confetti
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function startConfetti() {
+      particles = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 0.5 + 0.5,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`
+      }));
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+      particles.forEach(p => {
+        p.y += p.d;
+        if (p.y > canvas.height) {
+          p.y = -10;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animateConfetti);
+    }
+  </script>
+</body>
+</html>

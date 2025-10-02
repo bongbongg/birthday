@@ -1,210 +1,245 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy 22nd Birthday Indra 🎉</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 22nd Birthday Indra 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+body, html {
+  margin: 0; padding: 0; height: 100%;
+  font-family: 'Baloo 2', cursive;
+  overflow: hidden;
+  background: url("nailong.png") no-repeat center center fixed;
+  background-size: cover;
+  color: #111;
+}
+.slide {
+  position: absolute; top:0; left:0;
+  width:100%; height:100%;
+  display:flex; justify-content:center; align-items:center;
+  flex-direction:column; background: rgba(0,0,0,0.6);
+  color: white; text-align:center; z-index:10;
+}
+.slide h1 { font-family:'Pacifico', cursive; font-size:2.5rem; opacity:0; animation: fadeIn 2s forwards; }
+.slide h2, .slide p { font-size:1.5rem; margin-top:20px; opacity:0; animation: fadeIn 2s forwards; }
+.btn {
+  background: linear-gradient(135deg,#ffcc00,#ffaa00); color:#111;
+  padding:12px 24px; border:none; border-radius:30px; font-weight:bold;
+  cursor:pointer; margin-top:25px; font-size:1rem; box-shadow:2px 2px 8px rgba(0,0,0,0.3); transition:0.3s;
+}
+.btn:hover { transform: scale(1.05); }
+@keyframes fadeIn { from {opacity:0; transform:scale(0.8);} to {opacity:1; transform:scale(1);} }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-top: 80px;
-      animation: fadeIn 2s ease forwards;
-    }
+.main {
+  display:none; flex-direction:column; text-align:center;
+  background: rgba(255,255,255,0.7); color:#111; height:100%;
+  justify-content:center; align-items:center;
+}
+.gift-container {
+  margin:25px auto; gap:20px; flex-wrap:wrap; justify-content:center; display:flex;
+}
+.gift {
+  width:110px; height:110px; background:#e63946; border-radius:12px;
+  cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,0.3); position:relative;
+}
+.gift::before {
+  content:""; position:absolute; top:0; left:47%; width:14px; height:100%; background:gold; border-radius:3px;
+}
+.gift::after {
+  content:""; position:absolute; top:47%; left:0; width:100%; height:14px; background:gold; border-radius:3px;
+}
+.popup {
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:100;
+}
+.popup-content {
+  background:#fff; padding:20px; border-radius:20px; max-width:350px;
+  text-align:center; box-shadow:0 6px 20px rgba(0,0,0,0.3); animation: popUp 0.5s ease;
+}
+.popup-content img { max-width:200px; margin-bottom:15px; }
+.popup-content h2 { font-family:'Pacifico', cursive; margin-bottom:10px; font-size:1.5rem; color:#e63946; }
+.popup-content p { font-size:1rem; margin-bottom:10px; line-height:1.4; }
+.close-btn { background:#e63946; color:#fff; border:none; border-radius:20px; padding:8px 16px; cursor:pointer; margin-top:10px; }
+@keyframes popUp { from {transform:scale(0.5); opacity:0;} to {transform:scale(1); opacity:1;} }
 
-    .btn {
-      background: #ffcc00;
-      color: #222;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 20px;
-    }
-    .btn:hover {
-      background: #ffaa00;
-      transform: scale(1.1);
-    }
-
-    .gift-container {
-      display: none;
-      margin: 40px auto;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 600px;
-    }
-
-    .gift {
-      width: 120px;
-      height: 120px;
-      background: #ff4e50;
-      border-radius: 12px;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.3s;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-    }
-    .gift:hover {
-      transform: scale(1.1);
-    }
-    .gift::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 45%;
-      width: 10px;
-      height: 100%;
-      background: #fff;
-    }
-    .gift::after {
-      content: "";
-      position: absolute;
-      top: 45%;
-      left: 0;
-      width: 100%;
-      height: 10px;
-      background: #fff;
-    }
-
-    .message {
-      display: none;
-      margin: 15px auto;
-      font-size: 1rem;
-      background: rgba(0,0,0,0.6);
-      padding: 12px;
-      border-radius: 8px;
-      max-width: 400px;
-    }
-
-    .character {
-      margin-top: 30px;
-      animation: float 3s ease-in-out infinite;
-    }
-    .character img {
-      width: 200px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-    }
-  </style>
+#wheel-section { display:none; flex-direction:column; justify-content:center; align-items:center; height:100%; background:rgba(255,255,255,0.7); text-align:center; }
+#wheel { border-radius:50%; border:8px solid #fff; box-shadow:0 6px 20px rgba(0,0,0,0.3); margin:20px auto; }
+</style>
 </head>
 <body>
-  <h1>🎉 Happy 22nd Birthday Indra 🎂</h1>
-  <button class="btn" onclick="showGifts()">Mulai Perayaan ➡️</button>
 
-  <div class="gift-container" id="giftContainer">
-    <div class="gift" onclick="openGift(0)"></div>
+<!-- Slide 1 -->
+<div class="slide" id="slide1">
+  <h1 style="animation-delay:0s;">🎉 Happy Birthday 🎉</h1>
+  <h2 style="animation-delay:2.5s;">✨ 22nd Birthday Indra ✨</h2>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="slide2" style="display:none;">
+  <p style="animation-delay:0s;">Semoga di usia yang baru ini,</p>
+  <p style="animation-delay:1.5s;">Indra selalu sehat, bahagia, dan sukses,</p>
+  <p style="animation-delay:3s;">dikelilingi orang-orang baik (yang kayak gaby),</p>
+  <p style="animation-delay:4.5s;">dan semua mimpi bisa tercapai ✨</p>
+  <button class="btn" id="slide2-btn" style="display:none;" onclick="goToGifts()">Buka Kado 🎁</button>
+</div>
+
+<!-- Main gifts -->
+<div class="main" id="main">
+  <h1>🎂 Yuk buka kadonya, Indra 🎂</h1>
+  <div class="gift-container">
     <div class="gift" onclick="openGift(1)"></div>
     <div class="gift" onclick="openGift(2)"></div>
+    <div class="gift" onclick="openGift(3)"></div>
   </div>
+</div>
 
-  <div id="messages">
-    <div class="message">🎁 Indra, semoga umur 22 penuh kebahagiaan dan rezeki!</div>
-    <div class="message">🔥 Makin sukses, makin keren, dan selalu sehat!</div>
-    <div class="message">🚀 Semoga semua mimpi kamu segera tercapai!</div>
+<!-- Popups Kado -->
+<div class="popup" id="popup1">
+  <div class="popup-content">
+    <h2>🎂 Kue Spesial</h2>
+    <img src="dinocake.jpg" alt="Cake">
+    <p>Semoga tiap potongan kue ini bawa manis di perjalananmu, Indra! 🎉</p>
+    <button class="close-btn" onclick="closeGift(1)">Tutup</button>
   </div>
-
-  <div class="character">
-    <img src="https://i.ibb.co/fSn7y0h/anime-boy.png" alt="Anime Boy">
-    <p>Yo Indra, siap buka kadonya? 😎</p>
+</div>
+<div class="popup" id="popup2">
+  <div class="popup-content">
+    <h2>🎈 Balon Bahagia</h2>
+    <img src="balondino.jpg" alt="Balloons">
+    <p>Balon ini terbang tinggi, semoga semangatmu pun ikut terbang ke mimpi baru! 🚀</p>
+    <button class="close-btn" onclick="closeGift(2)">Tutup</button>
   </div>
+</div>
+<div class="popup" id="popup3">
+  <div class="popup-content">
+    <h2>💎 Hadiah Kejutan</h2>
+    <img src="dinogemoy.jpg" alt="Gift">
+    <p>Rezeki, kesehatan, dan kebahagiaan selalu menyertaimu, Indra ✨</p>
+    <button class="close-btn" onclick="closeGift(3)">Tutup</button>
+  </div>
+</div>
 
-  <!-- Musik Happy -->
-  <audio id="bgMusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
-  </audio>
-  <button class="btn" onclick="toggleMusic()">🎵 Play/Pause Musik</button>
+<!-- Wheel Section -->
+<div id="wheel-section">
+  <h1>🍀 Putar Rodanya, Indra! 🍀</h1>
+  <canvas id="wheel" width="300" height="300"></canvas>
+  <button class="btn" onclick="spinWheel()">Putar 🎡</button>
+</div>
 
-  <canvas id="confetti"></canvas>
+<!-- Popup Hadiah -->
+<div class="popup" id="popupWheel">
+  <div class="popup-content">
+    <h2>🎁 Selamat! 🎁</h2>
+    <img id="wheelPrizeImg" src="" alt="Hadiah" style="max-width:150px; margin-bottom:10px;">
+    <p id="wheelPrizeText" style="font-size:1rem; line-height:1.4;"></p>
+    <button class="close-btn" onclick="closeWheelPopup()">Tutup</button>
+  </div>
+</div>
 
-  <script>
-    function showGifts() {
-      document.getElementById("giftContainer").style.display = "flex";
-      startConfetti();
-    }
+<audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" loop></audio>
 
-    function openGift(index) {
-      const messages = document.querySelectorAll(".message");
-      messages[index].style.display = "block";
-    }
+<script>
+  // Slide 1 ke Slide 2
+setTimeout(()=>{
+  document.getElementById("slide1").style.display = "none";
+  document.getElementById("slide2").style.display = "flex";
 
-    function toggleMusic() {
-      const music = document.getElementById("bgMusic");
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
-    }
+  // tampilkan tombol setelah teks terakhir selesai animasi
+  setTimeout(()=>{
+    document.getElementById("slide2-btn").style.display = "inline-block";
+  }, 6500); // 4.5s + 2s animasi
+},5000);
+// Slide
+setTimeout(()=>{document.getElementById("slide1").style.display="none";document.getElementById("slide2").style.display="flex";},5000);
+function goToGifts(){document.getElementById("slide2").style.display="none";document.getElementById("main").style.display="flex";document.getElementById("bg-music").play();}
+function openGift(num){document.getElementById("popup"+num).style.display="flex";}
+function closeGift(num){
+  document.getElementById("popup"+num).style.display="none";
+  if(num===3){document.getElementById("main").style.display="none";document.getElementById("wheel-section").style.display="flex"; drawWheel();}
+}
 
-    // Confetti
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
+let openedGifts = 0; // hitung kado yang sudah dibuka
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+function openGift(num){
+  document.getElementById("popup"+num).style.display="flex";
+}
 
-    function startConfetti() {
-      particles = Array.from({ length: 150 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 6 + 4,
-        d: Math.random() * 0.5 + 0.5,
-        color: `hsl(${Math.random() * 360}, 100%, 50%)`
-      }));
-      animateConfetti();
-    }
+function closeGift(num){
+  document.getElementById("popup"+num).style.display="none";
+  openedGifts++; // tambah 1 tiap kado ditutup
 
-    function animateConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-      });
-      particles.forEach(p => {
-        p.y += p.d;
-        if (p.y > canvas.height) {
-          p.y = -10;
-          p.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(animateConfetti);
-    }
-  </script>
+  if(openedGifts === 3){ // baru tampil wheel kalau semua 3 dibuka
+    document.getElementById("main").style.display="none";
+    document.getElementById("wheel-section").style.display="flex";
+    drawWheel();
+  }
+}
+
+// Wheel
+const canvas=document.getElementById("wheel"),ctx=canvas.getContext("2d");
+const hadiah=["Liburan Gratis","Voucher Makan","Ucapan Spesial","Beliin Es Krim","Kejutan Misterius","Pelukan Gratis"];
+let startAngle=0,spinAngleStart=0,spinTime=0,spinTimeTotal=0,spinTimeout=null;
+
+// Hadiah spinwheel lengkap
+const wheelGifts = [
+  {name:"Liburan Gratis", img:"jalandino.jpg", text:"Woohoo! Selamat, kamu dapat liburan gratis! Siapkan koper dan sunscreen-mu 🏖️✈️"},
+  {name:"Voucher Makan", img:"kesaldino.jpg", text:"Yay! Kamu dapat voucher makan enak! Tapi Boongg 🍕🍣🍔"},
+  {name:"Ucapan Spesial", img:"dinopergi.jpg", text:"Ini hadiah spesial berupa ucapan manis: Semoga setiap hari penuh kebahagiaan ✨❤️"},
+  {name:"Beliin Es Krim", img:"cemongdino.jpg", text:"Mau es krim? Dapat hadiah beli es krim favoritmu 🍦😋"},
+  {name:"Kejutan Misterius", img:"ledekdino.jpg", text:"Hadiah misterius menantimu! Tebak isinya, siapa tahu beruntung 🎁👀"},
+  {name:"Pelukan Gratis", img:"pelukdino.jpg", text:"Dapat hadiah pelukan gratis! Virtual hug untukmu 🤗💕"}
+];
+
+function drawWheel(){
+  const outsideRadius=140,textRadius=100,insideRadius=30;
+  ctx.clearRect(0,0,300,300);
+  const arc=Math.PI/(hadiah.length/2);
+  ctx.font="bold 16px Baloo 2"; ctx.textAlign="center"; ctx.textBaseline="middle";
+  for(let i=0;i<hadiah.length;i++){
+    const angle=startAngle+i*arc;
+    ctx.fillStyle=i%2===0?"#ffcc00":"#ffaa00";
+    ctx.beginPath();
+    ctx.arc(150,150,outsideRadius,angle,angle+arc,false);
+    ctx.arc(150,150,insideRadius,angle+arc,angle,true);
+    ctx.fill();
+    ctx.save();
+    ctx.translate(150+Math.cos(angle+arc/2)*textRadius,150+Math.sin(angle+arc/2)*textRadius);
+    ctx.rotate(angle+arc/2+Math.PI/2);
+    ctx.fillStyle="#111";
+    ctx.fillText(hadiah[i],0,0);
+    ctx.restore();
+  }
+  // panah
+  ctx.fillStyle="#e63946";
+  ctx.beginPath();
+  ctx.moveTo(150-10,10);
+  ctx.lineTo(150+10,10);
+  ctx.lineTo(150,40);
+  ctx.closePath(); ctx.fill();
+}
+
+function rotateWheel(){spinAngleStart*=0.97; startAngle+=spinAngleStart*Math.PI/180; drawWheel(); spinTime+=30;
+  if(spinTime>=spinTimeTotal){stopRotateWheel();}else{spinTimeout=setTimeout(rotateWheel,30);}
+}
+
+function spinWheel(){spinAngleStart=Math.random()*10+10; spinTime=0; spinTimeTotal=Math.random()*3000+4000; rotateWheel();}
+
+function stopRotateWheel(){
+  clearTimeout(spinTimeout);
+  const degrees=startAngle*180/Math.PI+90;
+  const arc=360/wheelGifts.length;
+  const index=Math.floor((360-(degrees%360))/arc);
+
+  // Ambil hadiah unik dari array
+  const gift = wheelGifts[index];
+  document.getElementById("wheelPrizeImg").src = gift.img;
+  document.getElementById("wheelPrizeText").innerText = gift.text;
+
+  document.getElementById("popupWheel").style.display="flex";
+}
+
+function closeWheelPopup(){document.getElementById("popupWheel").style.display="none";}
+</script>
 </body>
 </html>

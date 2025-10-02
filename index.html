@@ -3,60 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday!</title>
+  <title>Happy 22nd Birthday Indra!</title>
   <style>
     body {
       margin: 0;
       padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      text-align: center;
       overflow: hidden;
     }
+
     h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
-      animation: pop 1s ease forwards;
+      margin: 0;
+      animation: fadeInDown 2s ease forwards;
     }
+
     h2 {
       font-size: 1.5rem;
-      margin-bottom: 20px;
+      margin: 10px 0 30px;
       opacity: 0;
-      animation: fadeIn 2s ease 1s forwards;
+      animation: fadeIn 3s ease 2s forwards;
     }
-    .balloon {
-      width: 60px;
-      height: 80px;
-      background: #ff5f6d;
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      position: absolute;
-      bottom: -100px;
-      animation: floatUp 6s linear infinite;
+
+    .age {
+      font-size: 6rem;
+      font-weight: bold;
+      color: #ffcc00;
+      text-shadow: 0px 0px 20px #ffcc00;
+      opacity: 0;
+      animation: fadeInScale 2s ease 3s forwards;
     }
-    @keyframes pop {
-      0% {transform: scale(0);}
-      100% {transform: scale(1);}
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      background: #ffcc00;
+      color: #222;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ffaa00;
+    }
+
+    /* Animasi */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
-      to {opacity: 1;}
+      to { opacity: 1; }
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
     }
     @keyframes floatUp {
-      0% {transform: translateY(0);}
-      100% {transform: translateY(-110vh);}
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 60px;
+      height: 80px;
+      background: red;
+      border-radius: 50%;
+      animation: floatUp 6s linear infinite;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      background: red;
+      top: -20px;
+      animation: confettiFall 4s linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0); }
+      100% { transform: translateY(100vh) rotate(720deg); }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday! 🎂</h1>
-  <h2>Selamat ulang tahun, semoga panjang umur & selalu bahagia 💖</h2>
+  <h1>🎉 Happy Birthday Indra 🎂</h1>
+  <h2>Selamat ulang tahun yang ke</h2>
+  <div class="age">22</div>
   
-  <!-- Balon muncul random -->
+  <button onclick="surprise()">Klik untuk kejutan 🎁</button>
+
   <script>
     function createBalloon() {
       const balloon = document.createElement("div");
@@ -67,7 +119,24 @@
       document.body.appendChild(balloon);
       setTimeout(() => balloon.remove(), 6000);
     }
-    setInterval(createBalloon, 500);
+
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }
+
+    function surprise() {
+      let audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+      audio.play();
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createBalloon, i * 200);
+        setTimeout(createConfetti, i * 150);
+      }
+    }
   </script>
 </body>
 </html>

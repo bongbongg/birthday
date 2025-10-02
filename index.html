@@ -1,179 +1,176 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Indra 22 🎂</title>
+  <title>Happy Birthday Indra!</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
+      height: 100vh;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
       font-family: 'Poppins', sans-serif;
-      color: #fff;
-      text-align: center;
-      min-height: 100vh;
+      color: white;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
-      overflow-x: hidden;
+      align-items: center;
+      justify-content: center;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      animation: fadeIn 2s ease forwards;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
     }
 
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      opacity: 0;
-      animation: fadeIn 3s ease 1s forwards;
-    }
-
-    .btn {
-      background: #ffcc00;
-      color: #222;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #ffaa00;
-      transform: scale(1.1);
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff8c00; }
+      to { text-shadow: 0 0 25px #ff4500; }
     }
 
     .gift-container {
-      display: none;
-      margin-top: 30px;
+      display: flex;
       gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+      margin-top: 20px;
     }
 
-    .gift {
+    .gift-box {
       width: 120px;
       height: 120px;
-      background: #ff4e50;
-      border-radius: 12px;
-      position: relative;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 100, 100, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: transform 0.3s;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .gift:hover {
+
+    .gift-box:hover {
       transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(255, 200, 100, 0.9);
     }
-    .gift::before {
-      content: "";
+
+    .gift-box::before {
+      content: "🎁";
+      font-size: 50px;
+    }
+
+    .hidden-message {
+      display: none;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    canvas#confetti {
+      position: fixed;
       top: 0;
-      left: 45%;
-      width: 15px;
-      height: 100%;
-      background: #fff;
-    }
-    .gift::after {
-      content: "";
-      position: absolute;
-      top: 45%;
       left: 0;
       width: 100%;
-      height: 15px;
-      background: #fff;
+      height: 100%;
+      pointer-events: none;
     }
 
-    .opened {
-      background: transparent;
-      border: 2px dashed #ffcc00;
-    }
-
-    .message {
-      display: none;
-      margin-top: 15px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      background: rgba(0,0,0,0.6);
-      padding: 12px;
-      border-radius: 8px;
-      animation: popUp 0.8s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes popUp {
-      from {opacity: 0; transform: scale(0.5);}
-      to {opacity: 1; transform: scale(1);}
-    }
-
-    /* Efek confetti */
-    .confetti {
+    .character {
       position: absolute;
-      width: 10px;
-      height: 20px;
-      top: -10px;
-      background: red;
-      animation: fall 3s linear forwards;
-    }
-    @keyframes fall {
-      0% {transform: translateY(0) rotate(0);}
-      100% {transform: translateY(100vh) rotate(720deg);}
+      bottom: 20px;
+      right: 20px;
+      width: 180px;
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Happy 22nd Birthday Indra 🎂</h1>
-  <h2>Klik lanjutkan untuk buka hadiahmu, Bro!</h2>
-  <button class="btn" onclick="showGifts()">Lanjutkan ➡️</button>
 
-  <div class="gift-container" id="giftContainer">
-    <div class="gift" onclick="openGift(0)"></div>
-    <div class="gift" onclick="openGift(1)"></div>
-    <div class="gift" onclick="openGift(2)"></div>
+  <h1>🎉 Happy 22nd Birthday, Indra! 🎂</h1>
+
+  <div class="gift-container">
+    <div class="gift-box" onclick="openGift(1)">
+      <div class="hidden-message" id="msg1">🎊 Semoga makin sukses & kece bro! 💪</div>
+    </div>
+    <div class="gift-box" onclick="openGift(2)">
+      <div class="hidden-message" id="msg2">🌍 Semoga banyak petualangan seru nungguin kamu!</div>
+    </div>
+    <div class="gift-box" onclick="openGift(3)">
+      <div class="hidden-message" id="msg3">❤️ Banyak kebahagiaan & cinta di umur 22 ini!</div>
+    </div>
   </div>
 
-  <div id="messages">
-    <div class="message">🚀 Bro Indra, semoga makin melesat di umur 22!</div>
-    <div class="message">🔥 Makin strong, makin keren, dan makin sukses!</div>
-    <div class="message">💎 Tahun ini penuh keberuntungan & momen keren buat kamu!</div>
-  </div>
+  <!-- Karakter anime cowo -->
+  <img src="https://i.ibb.co/3W2WcZw/anime-boy.png" alt="anime boy" class="character">
+
+  <!-- Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <!-- Musik -->
+  <audio id="bg-music" loop autoplay>
+    <source src="https://www.bensound.com/bensound-music/bensound-happyrock.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    function showGifts() {
-      document.getElementById("giftContainer").style.display = "flex";
+    function openGift(num) {
+      const msg = document.getElementById("msg" + num);
+      msg.style.display = "block";
+      setTimeout(() => { msg.style.display = "none"; }, 4000);
     }
 
-    function openGift(index) {
-      const gifts = document.querySelectorAll(".gift");
-      const messages = document.querySelectorAll(".message");
+    // Confetti effect
+    const confetti = document.getElementById("confetti");
+    const ctx = confetti.getContext("2d");
+    confetti.width = window.innerWidth;
+    confetti.height = window.innerHeight;
 
-      // ubah tampilan gift box jadi "terbuka"
-      gifts[index].classList.add("opened");
-      gifts[index].innerHTML = "🎁";
-
-      // tampilkan pesan sesuai gift
-      messages[index].style.display = "block";
-
-      // keluarkan confetti
-      for (let i = 0; i < 20; i++) {
-        setTimeout(() => createConfetti(), i * 100);
-      }
+    let particles = [];
+    for (let i = 0; i < 200; i++) {
+      particles.push({
+        x: Math.random() * confetti.width,
+        y: Math.random() * confetti.height,
+        r: Math.random() * 4 + 1,
+        d: Math.random() * 200,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        tilt: Math.floor(Math.random() * 5) - 5
+      });
     }
 
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * window.innerWidth + "px";
-      confetti.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 3000);
+    function draw() {
+      ctx.clearRect(0, 0, confetti.width, confetti.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.r, p.r);
+        ctx.fill();
+      });
+      update();
     }
+
+    function update() {
+      particles.forEach(p => {
+        p.y += Math.cos(p.d) + 1 + p.r / 2;
+        p.x += Math.sin(p.d);
+        if (p.y > confetti.height) {
+          p.y = -10;
+          p.x = Math.random() * confetti.width;
+        }
+      });
+    }
+
+    setInterval(draw, 33);
   </script>
+
 </body>
 </html>
